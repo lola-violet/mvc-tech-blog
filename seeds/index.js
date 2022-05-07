@@ -29,22 +29,22 @@ const blogs = [
     },
     {
         title:"I'm Wilson",
-        body:"My name is Mr. Wilson & I'm Violet's cousin. ",
+        body:"My name is Mr. Wilson & I'm Violet's cousin.",
         UserId:2
     }
 ]
 
-const seedMe = async ()=>{
-    try{
-        await sequelize.sync({force:true})
+const seedMe = async () => {
+    try {
+        await sequelize.sync({force:true});
         await User.bulkCreate(users,{
             individualHooks:true
         });
         await Blog.bulkCreate(blogs);
         process.exit(0);
-    } catch(err){
-        console.log(err)
-    }
-}
+    } catch(err) {
+        console.log(err);
+    };
+};
 
 seedMe()
