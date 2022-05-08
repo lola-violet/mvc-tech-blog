@@ -16,6 +16,7 @@ const { User, Blog } = require("./models");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+
 const sess = {
   secret: process.env.SESSION_SECRET,
   cookie: {
@@ -31,6 +32,7 @@ app.use(session(sess));
 
 // Static directory
 app.use(express.static('public'));
+
 
 const hbs = exphbs.create({});
 app.engine('handlebars', hbs.engine);

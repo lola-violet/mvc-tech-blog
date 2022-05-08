@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const {User,Blog} = require("../models");
+const {User,Blog} = require("../../models");
 
 // Find All Blogs
 router.get("/", async (req, res) => {
     try {
-        const dbBlogs = await Blog.findAll({});
+        const dbBlogs = await Blog.findAll({
+            include: [User]
+        });
         res.json(dbBlogs);
     } catch(err) {
         console.log(err);
@@ -16,7 +18,9 @@ router.get("/", async (req, res) => {
 // Find One Blog by ID
 router.get("/:id", async (req, res) => {
     try {
-        const dbBlog = await Blog.findbyPk(req.params.id, {});
+        const dbBlog = await Blog.findByPk(req.params.id, {
+            include: [User]
+        });
         res.json(dbBlog);
     } catch (err) {
         console.log(err);

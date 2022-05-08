@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row d-flex justify-content-center mt-5">
-    {{#each blogs}}
+    {{#each allBlog}}
         <div class="card col-12 col-lg-10">
             <div class="card-body">
               <h5 class="card-title">{{title}}</h5>
-              <p class="card-text">Date of Creation</p>
+              <p class="card-text">{{createdAt}}</p>
               <a href="#" class="btn btn-dark">Read More</a>
             </div>
         </div>

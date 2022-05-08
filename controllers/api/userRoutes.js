@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {User,Blog} = require("../models/");
+const {User,Blog} = require("../../models");
 const bcrypt  = require("bcrypt");
 
 // Find All Users
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 // Find One User by ID
 router.get("/:id", async (req, res) => {
     try {
-        const dbUser = await User.findbyPk(req.params.id, {});
+        const dbUser = await User.findByPk(req.params.id, {});
         res.json(dbUser);
     } catch (err) {
         console.log(err);
@@ -101,8 +101,14 @@ router.post("/login", async (req, res) => {
 
 // LOG OUT
 router.get("/logout", (req, res) => {
-    req.session.destroy();
-    res.redirect("/");
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+        res.redirect("/");
+    } else {
+        res.status(404).end();
+    }
 });
 
 module.exports = router;
