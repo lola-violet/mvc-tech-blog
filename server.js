@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const exphbs = require("express-handlebars");
 const allRoutes = require("./controllers");
 const session = require("express-session");
@@ -31,7 +32,8 @@ const sess = {
 app.use(session(sess));
 
 // Static directory
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 const hbs = exphbs.create({});
@@ -40,8 +42,12 @@ app.set('view engine', 'handlebars');
 
 app.use("/", allRoutes);
 
-sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
+sequelize.sync({ force: false }).then( () => {
+  app.listen(PORT, () => console.log("App now listening on PORT " + PORT));
 });
+
+// sequelize.sync({ force: false }).then(function() {
+//   app.listen(PORT, function() {
+//     console.log("App listening on PORT " + PORT);
+//   });
+// });
